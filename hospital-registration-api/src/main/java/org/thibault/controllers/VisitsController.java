@@ -25,7 +25,11 @@ public class VisitsController {
   }
   
   @GetMapping ("api/visits")
-  public List<Visit> getAllVisits(){
-    return this.visitsService.getAllVisits();
+  public List<Visit> getVisitsOnDate(
+          @RequestParam String day,
+          @RequestParam String month,
+          @RequestParam String year
+        ){
+    return this.visitsService.getVisitOnDate(day, month, year);
   }
 }

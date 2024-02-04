@@ -20,4 +20,25 @@ public class Visit {
     this.doctor = doctor;
     this.timestamp = timestamp;
   }
+  
+  public Timestamp getTimestamp(){
+    return this.timestamp;
+  }
+  
+  public Visitor getVisitor() {
+    return this.visitor;
+  }
+  
+  public Doctor getDoctor(){
+    return this.doctor;
+  }
+  
+  public String timestampString(){
+    return this.timestamp.toString();
+  }
+  
+  public String toString(){
+    return this.visitor.getFirstName() + " " + this.doctor.getLastName() + " " + timestampString();
+  }
+  
 }

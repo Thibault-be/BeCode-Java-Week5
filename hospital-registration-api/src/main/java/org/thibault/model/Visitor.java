@@ -18,7 +18,7 @@ public class Visitor {
     this.id = id;
   }
   
-  public String firstName() {
+  public String getFirstName() {
     return firstName;
   }
   
@@ -26,7 +26,7 @@ public class Visitor {
     this.firstName = firstName;
   }
   
-  public String lastName() {
+  public String getLastName() {
     return lastName;
   }
   
