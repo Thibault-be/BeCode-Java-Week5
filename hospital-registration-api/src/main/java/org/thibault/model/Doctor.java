@@ -1,5 +1,8 @@
 package org.thibault.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Doctor {
   
   private final String firstName;
@@ -7,11 +10,15 @@ public class Doctor {
   private final String department;
   private int id;
   
-  public Doctor(String firstName, String lastName, String department) {
+  @JsonCreator
+  public Doctor(      @JsonProperty("firstName") String firstName,
+                      @JsonProperty("lastName") String lastName,
+                      @JsonProperty("department") String department,
+                      @JsonProperty("id") int id) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.department = department;
-    this.id = 0;
+    this.id = id;
   }
   
   public void setId(int id){
@@ -19,7 +26,6 @@ public class Doctor {
   }
   
   public int getId(){
-    if (this.id == 0) return -1;
     return this.id;
   }
   

@@ -19,4 +19,8 @@ public class VisitorsRepo {
   public List<Visitor> getAllVisitors(){
     return this.allVisitors;
   }
+  
+  public int getSize(){
+    return this.allVisitors.size();
+  }
 }

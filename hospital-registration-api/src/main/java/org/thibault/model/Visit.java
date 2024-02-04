@@ -1,5 +1,8 @@
 package org.thibault.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -9,10 +12,12 @@ public class Visit {
   private Doctor doctor;
   private Timestamp timestamp;
   
-  public Visit(Visitor visitor, Doctor doctor) {
+  @JsonCreator
+  public Visit( @JsonProperty("visitor") Visitor visitor,
+                @JsonProperty("doctor") Doctor doctor,
+                @JsonProperty("timestamp") Timestamp timestamp) {
     this.visitor = visitor;
     this.doctor = doctor;
-    Date date = new Date();
-    this.timestamp = new Timestamp(date.getTime());
+    this.timestamp = timestamp;
   }
 }

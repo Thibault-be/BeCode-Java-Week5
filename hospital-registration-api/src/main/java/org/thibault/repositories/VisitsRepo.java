@@ -1,10 +1,12 @@
 package org.thibault.repositories;
 
+import org.springframework.stereotype.Repository;
 import org.thibault.model.Visit;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class VisitsRepo {
   
   private List<Visit> allVisits;
@@ -13,7 +15,7 @@ public class VisitsRepo {
     this.allVisits = new ArrayList<>();
   }
   
-  public void addVisit(Visit visit){
+  public void registerNewVisit(Visit visit){
     this.allVisits.add(visit);
   }
   

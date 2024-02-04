@@ -1,15 +1,21 @@
 package org.thibault.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Visitor {
   
   private String firstName;
   private String lastName;
   private Integer id;
   
-  public Visitor(String firstName, String lastName) {
+  @JsonCreator
+  public Visitor(@JsonProperty("firstName") String firstName,
+                 @JsonProperty("lastName") String lastName,
+                 @JsonProperty("id") int id) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.id = 0;
+    this.id = id;
   }
   
   public String firstName() {
@@ -26,10 +32,6 @@ public class Visitor {
   
   public void setLastName(String lastName) {
     this.lastName = lastName;
-  }
-  
-  public void setId(int id){
-    this.id = id;
   }
   
 }
