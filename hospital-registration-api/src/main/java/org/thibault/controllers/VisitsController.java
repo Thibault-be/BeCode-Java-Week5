@@ -32,4 +32,17 @@ public class VisitsController {
         ){
     return this.visitsService.getVisitOnDate(day, month, year);
   }
+  
+  @GetMapping ("api/visitsInPeriod")
+  public List<Visit> getVisitsFromCertainPeriod(
+          @RequestParam String startDay,
+          @RequestParam String startMonth,
+          @RequestParam String startYear,
+          @RequestParam String endDay,
+          @RequestParam String endMonth,
+          @RequestParam String endYear
+        ){
+    return this.visitsService.getVisitsFromCertainPeriod(startDay, startMonth, startYear, endDay, endMonth, endYear);
+  }
+  
 }
