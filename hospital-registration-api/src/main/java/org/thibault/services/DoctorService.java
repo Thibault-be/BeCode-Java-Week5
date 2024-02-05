@@ -27,4 +27,8 @@ public class DoctorService {
   public List<Doctor> getAllDoctors(){
     return this.doctorsRepo.getAllDoctors();
   }
+  
+  public void removeDoctor(int id){
+    this.doctorsRepo.removeDoctor(id);
+  }
 }

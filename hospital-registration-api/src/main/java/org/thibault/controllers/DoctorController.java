@@ -41,6 +41,13 @@ public class DoctorController {
     return this.doctorService.getAllDoctors();
   }
   
-  
+  @DeleteMapping("/api/doctors/{id}")
+  public String removeDoctor(
+          @PathVariable String id
+          ){
+    this.doctorService.removeDoctor(Integer.valueOf(id));
+    return "Doctor with id " + id + " was removed.";
+  }
 }
+
 

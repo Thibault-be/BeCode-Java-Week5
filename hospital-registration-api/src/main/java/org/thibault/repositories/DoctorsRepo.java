@@ -16,9 +16,7 @@ public class DoctorsRepo {
   }
   
   public void addDoctor(Doctor doctor){
-    System.out.println("about to add doctor " + doctor.getFirstName());
     this.allDoctors.add(doctor);
-    System.out.println("I have added the doctor.");
   }
   
   public List<Doctor> getAllDoctors(){
@@ -36,4 +34,18 @@ public class DoctorsRepo {
     }
     System.out.println("Doctor not found");
   }
+  
+  public Doctor getDoctorById(int id){
+    for (Doctor doctor : this.allDoctors){
+      if (doctor.getId() == id) return doctor;
+    }
+    System.out.println("Doctor with id " + id + " not found");
+    return null;
+  }
+  
+  public void removeDoctor(int id){
+    Doctor doctorToRemove = getDoctorById(id);
+    this.allDoctors.remove(doctorToRemove);
+  }
+  
 }
