@@ -1,10 +1,12 @@
 package org.thibault.repositories;
 
+import org.springframework.stereotype.Repository;
 import org.thibault.model.Doctor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class DoctorsRepo {
   
   private List<Doctor> allDoctors;
