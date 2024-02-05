@@ -16,11 +16,26 @@ public class DoctorsRepo {
   }
   
   public void addDoctor(Doctor doctor){
+    System.out.println("about to add doctor " + doctor.getFirstName());
     this.allDoctors.add(doctor);
+    System.out.println("I have added the doctor.");
   }
   
   public List<Doctor> getAllDoctors(){
     return this.allDoctors;
   }
   
+  public void updateDoctorById(int id, String firstName, String lastName, String department){
+    System.out.println("I am in the repo and going to loop");
+    for (Doctor doctor : this.allDoctors){
+      System.out.println("in the repo and I have started looping");
+      if (doctor.getId() == id){
+        doctor.setFirstName(firstName);
+        doctor.setLastName(lastName);
+        doctor.setDepartment(department);
+        return;
+      }
+    }
+    System.out.println("Doctor not found");
+  }
 }

@@ -17,4 +17,9 @@ public class DoctorService {
     this.doctorsRepo.addDoctor(doctor);
   }
   
+  public void updateDoctorById(int id, String firstName, String lastName, String department){
+    System.out.println("in service and going to call doctorby Id in repo");
+    this.doctorsRepo.updateDoctorById(id, firstName, lastName, department);
+    
+  }
 }

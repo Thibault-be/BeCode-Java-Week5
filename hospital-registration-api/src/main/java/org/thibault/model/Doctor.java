@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Doctor {
   
-  private final String firstName;
-  private final String lastName;
-  private final String department;
+  private String firstName;
+  private String lastName;
+  private String department;
   private int id;
   
   @JsonCreator
@@ -40,4 +40,17 @@ public class Doctor {
   public String getDepartment() {
     return department;
   }
+  
+  public void setFirstName(String firstName){
+    this.firstName = firstName;
+  }
+  
+  public void setLastName(String lastName){
+    this.lastName = lastName;
+  }
+  
+  public void setDepartment(String department){
+    this.department = department;
+  }
+  
 }
