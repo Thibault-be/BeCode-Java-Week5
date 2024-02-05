@@ -5,6 +5,8 @@ import org.thibault.DTOs.UpdateDoctorObject;
 import org.thibault.model.Doctor;
 import org.thibault.services.DoctorService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping
 public class DoctorController {
@@ -33,15 +35,12 @@ public class DoctorController {
                         updateDoctorObject.getDepartment());
     return "Doctor updated successfully.";
   }
+  
+  @GetMapping("/api/doctors")
+  public List<Doctor> getAllDoctors(){
+    return this.doctorService.getAllDoctors();
+  }
+  
+  
 }
 
-//Update a Doctor
-//
-//URL: PUT /api/doctors/{id}
-//Path Parameters:
-//id (Integer): ID of the doctor to update.
-//Request Body: JSON object with the following fields:
-//name (String): Updated name of the doctor.
-//specialization (String): Updated specialization of the doctor.
-//        Response: 200 OK on successful update.
-//Description: Use this endpoint to update the details of a specific doctor.

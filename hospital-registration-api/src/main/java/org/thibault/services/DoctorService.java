@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.thibault.model.Doctor;
 import org.thibault.repositories.DoctorsRepo;
 
+import java.util.List;
+
 @Service
 public class DoctorService {
   
@@ -20,6 +22,9 @@ public class DoctorService {
   public void updateDoctorById(int id, String firstName, String lastName, String department){
     System.out.println("in service and going to call doctorby Id in repo");
     this.doctorsRepo.updateDoctorById(id, firstName, lastName, department);
-    
+  }
+  
+  public List<Doctor> getAllDoctors(){
+    return this.doctorsRepo.getAllDoctors();
   }
 }

@@ -26,9 +26,7 @@ public class DoctorsRepo {
   }
   
   public void updateDoctorById(int id, String firstName, String lastName, String department){
-    System.out.println("I am in the repo and going to loop");
     for (Doctor doctor : this.allDoctors){
-      System.out.println("in the repo and I have started looping");
       if (doctor.getId() == id){
         doctor.setFirstName(firstName);
         doctor.setLastName(lastName);
