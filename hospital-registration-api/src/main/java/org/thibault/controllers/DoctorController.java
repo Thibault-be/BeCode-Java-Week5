@@ -41,6 +41,13 @@ public class DoctorController {
     return this.doctorService.getAllDoctors();
   }
   
+  @GetMapping("/api/doctors/{id}")
+  public Doctor getDoctorById(
+          @PathVariable String id
+      ){
+    return this.doctorService.getDoctorById(Integer.valueOf(id));
+  }
+  
   @DeleteMapping("/api/doctors/{id}")
   public String removeDoctor(
           @PathVariable String id

@@ -28,6 +28,10 @@ public class DoctorService {
     return this.doctorsRepo.getAllDoctors();
   }
   
+  public Doctor getDoctorById(int id){
+    return this.doctorsRepo.getDoctorById(id);
+  }
+  
   public void removeDoctor(int id){
     this.doctorsRepo.removeDoctor(id);
   }

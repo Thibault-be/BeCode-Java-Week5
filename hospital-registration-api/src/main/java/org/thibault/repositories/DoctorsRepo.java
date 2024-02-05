@@ -47,5 +47,4 @@ public class DoctorsRepo {
     Doctor doctorToRemove = getDoctorById(id);
     this.allDoctors.remove(doctorToRemove);
   }
-  
 }
