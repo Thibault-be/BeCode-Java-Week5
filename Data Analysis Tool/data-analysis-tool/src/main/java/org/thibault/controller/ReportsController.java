@@ -53,7 +53,6 @@ public class ReportsController {
     return result;
   }
   
-  
   @GetMapping("/yearly_total")
   public Map<String, Map<String,Long>> getYearlyTotal(
           @RequestParam String year,
@@ -62,7 +61,17 @@ public class ReportsController {
           @RequestParam(required = false, defaultValue = ".*") String transportMode
   ){
     Map<String, Map<String,Long>> result = this.generateReports.getYearlyTotal(year, country, commodity, transportMode);
-    
+    return result;
+  }
+  
+  @GetMapping("/yearly_average")
+  public Map<String, Map<String,Long>> getYearlyAverage(
+          @RequestParam String year,
+          @RequestParam (required = false, defaultValue = ".*") String country,
+          @RequestParam(required = false, defaultValue = ".*") String commodity,
+          @RequestParam(required = false, defaultValue = ".*") String transportMode
+  ){
+    Map<String, Map<String,Long>> result = this.generateReports.getYearlyAverage(year, country, commodity, transportMode);
     return result;
   }
   

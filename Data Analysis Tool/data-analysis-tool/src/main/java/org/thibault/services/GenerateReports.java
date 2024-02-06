@@ -89,49 +89,17 @@ public class GenerateReports {
   //Provides an overview of all the monthly totals for a particular year.
   // This command returns the total of each month for both import and export and then gives
   // the yearly total for both import and export.
-//  public Map<String, ArrayList<Long>> getYearlyTotal(String year, String country, String commodity, String transportMode){
-//
-//    Long importTotal = 0L;
-//    Long exportTotal = 0L;
-//
-//    Map<String, ArrayList<Long>> totalOfEachMonth = new HashMap<>();
-//
-//    for (Months month : Months.values()){
-//      ArrayList<Long> monthTotal = getMonthlyTotal(month.month.toLowerCase(), year, country, commodity, transportMode);
-//      ArrayList<Long> exportAndImportOfMonth = new ArrayList<>();
-//      exportAndImportOfMonth.add(monthTotal.get(0));
-//      exportAndImportOfMonth.add(monthTotal.get(1));
-//      System.out.println("here " + exportAndImportOfMonth.get(0));
-//
-//      totalOfEachMonth.put(month.toString(), exportAndImportOfMonth);
-//
-//      importTotal += monthTotal.get(1);
-//      exportTotal += monthTotal.get(0);
-//    }
-//    ArrayList<Long> exportImportTotal = new ArrayList<>();
-//    exportImportTotal.add(exportTotal);
-//    exportImportTotal.add(importTotal);
-//    totalOfEachMonth.put("export & import total", exportImportTotal);
-//
-//    return totalOfEachMonth;
-//  }
-  
-  
   public Map<String, Map<String,Long>> getYearlyTotal(String year, String country, String commodity, String transportMode){
-    
     Long importTotal = 0L;
     Long exportTotal = 0L;
-    
     Map<String, Map<String, Long>> monthlyAndYearlyTotals = new HashMap<>();
     
     for (Months month : Months.values()){
-      
       Map<String, Long> exportImportPerMonth = new HashMap<>();
       ArrayList<Long> monthTotal = getMonthlyTotal(month.month.toLowerCase(), year, country, commodity, transportMode);
       
       exportImportPerMonth.put("export", monthTotal.get(0));
       exportImportPerMonth.put("import", monthTotal.get(1));
-      
       monthlyAndYearlyTotals.put(month.toString(), exportImportPerMonth);
       
       importTotal += monthTotal.get(1);
@@ -145,32 +113,54 @@ public class GenerateReports {
     return monthlyAndYearlyTotals;
   }
   
-  
-  
-  
-  
-  
-
   //Provides an overview of all the monthly averages for a particular year, for both import and export.
   // Then it gives the yearly average for both import and export.
-//  public void getYearlyAverage( String year){
+  public Map<String, Map<String, Long>> getYearlyAverage( String year, String country, String commodity, String transportMode){
+    
+    Map<String, Map<String, Long>> monthlyTotals = new HashMap<>();
+    
+    Long exportTotal = 0L;
+    Long importTotal = 0L;
+    Long exportCount = 0L;
+    Long importCount = 0L;
+
+    for (Months month : Months.values()){
+      
+      Map<String, Long> exportImportTotalPerMonth = new HashMap<>();
+//      ArrayList<Long> monthData = getMonthlyAverage(month.month.toLowerCase(), year, country, commodity, transportMode);
+//      Long exportAverage = monthData.get(0);
+//      Long importAverage = monthData.get(1);
 //
-//    long yearTotalExportValue = 0;
-//    long yearTotalImportValue = 0;
-//    long exportCount = 0;
-//    long importCount = 0;
-//
-//    for (Months month : Months.values()){
-//      ArrayList<Long> monthData = getMonthlyAverage(month.month.toLowerCase(), year);
-//      yearTotalExportValue += monthData.get(0);
-//      yearTotalImportValue += monthData.get(3);
-//      exportCount += monthData.get(2);
-//      importCount += monthData.get(5);
-//    }
-//
-//    System.out.println("The yearly average for " + year + " of exports is " + yearTotalExportValue / exportCount /1000000 + " mln USD.");
-//    System.out.println("The yearly average for " + year + " of imports is " + yearTotalImportValue / importCount /1000000 + " mln USD.");
-//  }
+//      exportImportTotalPerMonth.put("export", exportAverage);
+//      exportImportTotalPerMonth.put("import", importAverage);
+//      monthlyTotals.put(month.toString(), exportImportTotalPerMonth);
+      
+      ArrayList<Long> monthData = getMonthlyTotal(month.month.toLowerCase(), year, country, commodity, transportMode);
+      Long exportAverage = monthData.get(0) / monthData.get(2) ;
+      Long importAverage = monthData.get(1) / monthData.get(3) ;
+      
+      exportTotal += monthData.get(0);
+      importTotal += monthData.get(1);
+      exportCount += monthData.get(2);
+      importCount += monthData.get(3);
+      exportImportTotalPerMonth.put("export", exportAverage);
+      exportImportTotalPerMonth.put("import", importAverage);
+      
+      monthlyTotals.put(month.toString(), exportImportTotalPerMonth);
+      
+    }
+    
+    Long yearlyExportAverage = exportTotal / exportCount;
+    Long yearlyImportAverage = importTotal / importCount;
+    
+    Map<String, Long> exportImportYearlyTotal = new HashMap<>();
+    exportImportYearlyTotal.put("export", yearlyExportAverage);
+    exportImportYearlyTotal.put("import", yearlyImportAverage);
+    
+    monthlyTotals.put("yearly averages", exportImportYearlyTotal);
+    
+    return monthlyTotals;
+  }
 //
 //  //Returns all the unique values that span the data set:
 //  // years, countries, commodities, transportation modes, and measures.
