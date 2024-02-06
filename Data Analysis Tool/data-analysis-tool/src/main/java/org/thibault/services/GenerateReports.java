@@ -1,13 +1,11 @@
 package org.thibault.services;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 import org.thibault.model.*;
 import org.thibault.repositories.*;
 
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,26 +85,74 @@ public class GenerateReports {
     return exportImportAverage;
     
   }
+  
+  //Provides an overview of all the monthly totals for a particular year.
+  // This command returns the total of each month for both import and export and then gives
+  // the yearly total for both import and export.
+//  public Map<String, ArrayList<Long>> getYearlyTotal(String year, String country, String commodity, String transportMode){
 //
+//    Long importTotal = 0L;
+//    Long exportTotal = 0L;
 //
-//  //Provides an overview of all the monthly totals for a particular year.
-//  // This command returns the total of each month for both import and export and then gives
-//  // the yearly total for both import and export.
-//  public void getYearlyTotal(String year){
+//    Map<String, ArrayList<Long>> totalOfEachMonth = new HashMap<>();
 //
-//    long importTotal = 0;
-//    long exportTotal = 0;
 //    for (Months month : Months.values()){
-//      ArrayList<Long> monthTotal = getMonthlyTotal(month.month.toLowerCase(), year);
+//      ArrayList<Long> monthTotal = getMonthlyTotal(month.month.toLowerCase(), year, country, commodity, transportMode);
+//      ArrayList<Long> exportAndImportOfMonth = new ArrayList<>();
+//      exportAndImportOfMonth.add(monthTotal.get(0));
+//      exportAndImportOfMonth.add(monthTotal.get(1));
+//      System.out.println("here " + exportAndImportOfMonth.get(0));
+//
+//      totalOfEachMonth.put(month.toString(), exportAndImportOfMonth);
+//
 //      importTotal += monthTotal.get(1);
 //      exportTotal += monthTotal.get(0);
 //    }
-//    System.out.println("The total export value for " + year + " amounted to " + exportTotal /1000000 + " mln USD.");
-//    System.out.println("The total import value for " + year + " amounted to " + importTotal /1000000 + " mln USD.");
-//  }
+//    ArrayList<Long> exportImportTotal = new ArrayList<>();
+//    exportImportTotal.add(exportTotal);
+//    exportImportTotal.add(importTotal);
+//    totalOfEachMonth.put("export & import total", exportImportTotal);
 //
-//  //Provides an overview of all the monthly averages for a particular year, for both import and export.
-//  // Then it gives the yearly average for both import and export.
+//    return totalOfEachMonth;
+//  }
+  
+  
+  public Map<String, Map<String,Long>> getYearlyTotal(String year, String country, String commodity, String transportMode){
+    
+    Long importTotal = 0L;
+    Long exportTotal = 0L;
+    
+    Map<String, Map<String, Long>> monthlyAndYearlyTotals = new HashMap<>();
+    
+    for (Months month : Months.values()){
+      
+      Map<String, Long> exportImportPerMonth = new HashMap<>();
+      ArrayList<Long> monthTotal = getMonthlyTotal(month.month.toLowerCase(), year, country, commodity, transportMode);
+      
+      exportImportPerMonth.put("export", monthTotal.get(0));
+      exportImportPerMonth.put("import", monthTotal.get(1));
+      
+      monthlyAndYearlyTotals.put(month.toString(), exportImportPerMonth);
+      
+      importTotal += monthTotal.get(1);
+      exportTotal += monthTotal.get(0);
+    }
+    Map<String, Long> exportImportYearlyTotal = new HashMap<>();
+    exportImportYearlyTotal.put("export", exportTotal);
+    exportImportYearlyTotal.put("import", importTotal);
+    monthlyAndYearlyTotals.put("Yearly totals", exportImportYearlyTotal);
+    
+    return monthlyAndYearlyTotals;
+  }
+  
+  
+  
+  
+  
+  
+
+  //Provides an overview of all the monthly averages for a particular year, for both import and export.
+  // Then it gives the yearly average for both import and export.
 //  public void getYearlyAverage( String year){
 //
 //    long yearTotalExportValue = 0;
