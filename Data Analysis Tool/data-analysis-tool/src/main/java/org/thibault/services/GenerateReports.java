@@ -1,14 +1,11 @@
 package org.thibault.services;
 
 import java.util.*;
-
 import org.springframework.stereotype.Service;
 import org.thibault.model.*;
 import org.thibault.repositories.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 @Service
 public class GenerateReports {
@@ -127,14 +124,6 @@ public class GenerateReports {
     for (Months month : Months.values()){
       
       Map<String, Long> exportImportTotalPerMonth = new HashMap<>();
-//      ArrayList<Long> monthData = getMonthlyAverage(month.month.toLowerCase(), year, country, commodity, transportMode);
-//      Long exportAverage = monthData.get(0);
-//      Long importAverage = monthData.get(1);
-//
-//      exportImportTotalPerMonth.put("export", exportAverage);
-//      exportImportTotalPerMonth.put("import", importAverage);
-//      monthlyTotals.put(month.toString(), exportImportTotalPerMonth);
-      
       ArrayList<Long> monthData = getMonthlyTotal(month.month.toLowerCase(), year, country, commodity, transportMode);
       Long exportAverage = monthData.get(0) / monthData.get(2) ;
       Long importAverage = monthData.get(1) / monthData.get(3) ;
@@ -161,41 +150,33 @@ public class GenerateReports {
     
     return monthlyTotals;
   }
-//
+
 //  //Returns all the unique values that span the data set:
 //  // years, countries, commodities, transportation modes, and measures.
-//  public void getOverview(){
-//    HashSet<String> uniqueYears = new HashSet<>();
-//    HashSet<String> uniqueCountries = new HashSet<>();
-//    HashSet<String> uniqueCommodities = new HashSet<>();
-//    HashSet<String> uniqueTransportModes = new HashSet<>();
-//    HashSet<String> uniqueMeasures = new HashSet<>();
-//
-//    for (TradeData td : allData.getAllData()){
-//      uniqueYears.add(td.getYear());
-//      uniqueCountries.add(td.getCountry());
-//      uniqueCommodities.add(td.getCommodity());
-//      uniqueTransportModes.add(td.getTransportMode());
-//      uniqueMeasures.add(td.getMeasure());
-//    }
-//
-//    printUniqueValues(uniqueYears, "Years");
-//    printUniqueValues(uniqueCountries, "Countries");
-//    printUniqueValues(uniqueCommodities, "Commodities");
-//    printUniqueValues(uniqueTransportModes, "Transport modes");
-//    printUniqueValues(uniqueMeasures, "Measures");
-//  }
-//
-//  public static void printUniqueValues(HashSet<String> hs, String label){
-//    StringBuilder bob = new StringBuilder();
-//
-//    System.out.print(label + " > ");
-//    for (String value : hs){
-//      bob.append(value);
-//      bob.append(" - ");
-//    }
-//    bob.deleteCharAt(bob.length()-1);
-//    bob.deleteCharAt(bob.length()-1);
-//    System.out.println(bob);
-//  }
+  public Map<String, HashSet<String>> getOverview(){
+    
+    Map<String, HashSet<String>> uniqueValues = new HashMap<>();
+    
+    HashSet<String> uniqueYears = new HashSet<>();
+    HashSet<String> uniqueCountries = new HashSet<>();
+    HashSet<String> uniqueCommodities = new HashSet<>();
+    HashSet<String> uniqueTransportModes = new HashSet<>();
+    HashSet<String> uniqueMeasures = new HashSet<>();
+
+    for (TradeData td : allData.getAllData()){
+      uniqueYears.add(td.getYear());
+      uniqueCountries.add(td.getCountry());
+      uniqueCommodities.add(td.getCommodity());
+      uniqueTransportModes.add(td.getTransportMode());
+      uniqueMeasures.add(td.getMeasure());
+    }
+    
+    uniqueValues.put("years", uniqueYears);
+    uniqueValues.put("countries", uniqueCountries);
+    uniqueValues.put("commodities", uniqueCommodities);
+    uniqueValues.put("transportation modes", uniqueTransportModes);
+    uniqueValues.put("measures", uniqueMeasures);
+    
+    return uniqueValues;
+  }
 }

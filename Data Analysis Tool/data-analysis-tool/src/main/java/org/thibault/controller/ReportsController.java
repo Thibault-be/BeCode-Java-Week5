@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.thibault.services.GenerateReports;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping
@@ -75,7 +73,9 @@ public class ReportsController {
     return result;
   }
   
-
-  
-  
+  @GetMapping("/overview")
+  public Map<String, HashSet<String>> getOverview(){
+    
+    return this.generateReports.getOverview();
+  }
 }
