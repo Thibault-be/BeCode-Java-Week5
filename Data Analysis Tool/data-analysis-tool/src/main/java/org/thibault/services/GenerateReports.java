@@ -80,11 +80,10 @@ public class GenerateReports {
     exportImportAverage.add(importAverage);
     
     return exportImportAverage;
-    
   }
   
   //Provides an overview of all the monthly totals for a particular year.
-  // This command returns the total of each month for both import and export and then gives
+  // This returns the total of each month for both import and export and then gives
   // the yearly total for both import and export.
   public Map<String, Map<String,Long>> getYearlyTotal(String year, String country, String commodity, String transportMode){
     Long importTotal = 0L;
