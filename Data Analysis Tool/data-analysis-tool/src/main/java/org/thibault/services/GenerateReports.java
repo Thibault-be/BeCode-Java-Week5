@@ -31,15 +31,19 @@ public class GenerateReports {
     long exportSum = 0;
     long importSum = 0;
     Pattern countryPattern = Pattern.compile(country);
+    Pattern commodityPattern = Pattern.compile(commodity);
+    Pattern transportModePattern = Pattern.compile(transportMode);
     for (TradeData td : allData.getAllData()){
       
       Matcher countryMatcher = countryPattern.matcher(td.getCountry());
+      Matcher commodityMatcher = commodityPattern.matcher(td.getCommodity());
+      Matcher transportModeMatcher = transportModePattern.matcher(td.getTransportMode());
       
       if (td.getMonth().toLowerCase().equals(month) &&
           td.getYear().equals(year) &&
           countryMatcher.matches() &&
-          td.getCommodity().equals(commodity) &&
-          td.getTransportMode().equals(transportMode) &&
+          commodityMatcher.matches() &&
+          transportModeMatcher.matches() &&
           td.getMeasure().equals("$")){
           
         if (td.getDirection().equals("Exports")) exportSum += td.getValue();

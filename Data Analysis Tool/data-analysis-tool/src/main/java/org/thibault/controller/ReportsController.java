@@ -25,8 +25,8 @@ public class ReportsController {
         @RequestParam(required = true) String month,
         @RequestParam(required = true) String year,
         @RequestParam(required = false, defaultValue = ".*") String country,
-        @RequestParam(required = false, defaultValue = "All") String commodity,
-        @RequestParam(required = false, defaultValue = "All") String transportMode
+        @RequestParam(required = false, defaultValue = ".*") String commodity,
+        @RequestParam(required = false, defaultValue = ".*") String transportMode
       ){
     ArrayList<Long> exportImportTotal = this.generateReports.getMonthlyTotal(month, year, country, commodity, transportMode);
     return "The total export is " + exportImportTotal.get(0);
