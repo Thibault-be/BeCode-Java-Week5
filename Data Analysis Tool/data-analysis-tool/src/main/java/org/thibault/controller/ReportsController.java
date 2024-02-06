@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thibault.services.GenerateReports;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping
@@ -21,7 +23,7 @@ public class ReportsController {
   }
   
   @GetMapping ("/monthly_total")
-  public String getMonthlyTotal(
+  public Map<String, Long> getMonthlyTotal(
         @RequestParam(required = true) String month,
         @RequestParam(required = true) String year,
         @RequestParam(required = false, defaultValue = ".*") String country,
@@ -29,6 +31,11 @@ public class ReportsController {
         @RequestParam(required = false, defaultValue = ".*") String transportMode
       ){
     ArrayList<Long> exportImportTotal = this.generateReports.getMonthlyTotal(month, year, country, commodity, transportMode);
-    return "The total export is " + exportImportTotal.get(0);
+    Map<String, Long> result = new HashMap<>();
+    result.put("export", exportImportTotal.get(0));
+    result.put("import", exportImportTotal.get(1));
+    return result;
   }
+  
+  
 }
