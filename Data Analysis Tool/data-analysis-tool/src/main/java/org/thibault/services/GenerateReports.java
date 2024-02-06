@@ -30,6 +30,8 @@ public class GenerateReports {
     ArrayList<Long> exportImportTotal = new ArrayList<>();
     long exportSum = 0;
     long importSum = 0;
+    long exportCount = 0;
+    long importCount = 0;
     Pattern countryPattern = Pattern.compile(country);
     Pattern commodityPattern = Pattern.compile(commodity);
     Pattern transportModePattern = Pattern.compile(transportMode);
@@ -46,44 +48,45 @@ public class GenerateReports {
           transportModeMatcher.matches() &&
           td.getMeasure().equals("$")){
           
-        if (td.getDirection().equals("Exports")) exportSum += td.getValue();
-        if (td.getDirection().equals("Imports")) importSum += td.getValue();
+        if (td.getDirection().equals("Exports")) {
+          exportSum += td.getValue();
+          exportCount++;
+        }
+        if (td.getDirection().equals("Imports")) {
+          importSum += td.getValue();
+          importCount++;
+        }
       }
     }
     exportImportTotal.add(exportSum);
     exportImportTotal.add(importSum);
+    exportImportTotal.add(exportCount);
+    exportImportTotal.add(importCount);
     return exportImportTotal;
   }
   
   //Returns the average of both the export and import of a specified month of a specified year.
-//  public ArrayList<Long> getMonthlyAverage(String month, String year){
-//    ArrayList<Long> exportImportTotal = getMonthlyTotal(month, year);
-//    ArrayList<Long> exportImportAverageAndCount = new ArrayList<>();
-//
-//    long exportCount = 0;
-//    long importCount = 0;
-//    for (TradeData td : allData.getAllData()){
-//      if (td.getMonth().toLowerCase().equals(month) && td.getYear().equals(year) && td.getMeasure().equals("$")){
-//        if (td.getDirection().equals("Exports")) exportCount++;
-//        if (td.getDirection().equals("Imports")) importCount++;
-//      }
-//    }
-//
-//    long exportAverage = exportImportTotal.get(0)/ exportCount;
-//    long importAverage = exportImportTotal.get(1) / importCount;
-//
-//    exportImportAverageAndCount.add(exportImportTotal.get(0));
-//    exportImportAverageAndCount.add(exportAverage);
-//    exportImportAverageAndCount.add(exportCount);
-//    exportImportAverageAndCount.add(exportImportTotal.get(1));
-//    exportImportAverageAndCount.add(importAverage);
-//    exportImportAverageAndCount.add(importCount);
-//
-//    System.out.println("Average of exports for " + month + " of " + year + " amounted to " + exportAverage /1000000 + " mln. USD.");
-//    System.out.println("Average of imports for " + month + " of " + year + " amounted to " + importAverage /1000000 + " mln. USD.");
-//
-//    return exportImportAverageAndCount;
-//  }
+    public ArrayList<Long> getMonthlyAverage(String month,
+                                             String year,
+                                             String country,
+                                             String commodity,
+                                             String transportMode){
+    ArrayList<Long> exportImportTotal = getMonthlyTotal(month, year, country, commodity, transportMode);
+    long exportTotal = exportImportTotal.get(0);
+    long importTotal = exportImportTotal.get(1);
+    long exportCount = exportImportTotal.get(2);
+    long importCount = exportImportTotal.get(3);
+    
+    ArrayList<Long> exportImportAverage = new ArrayList<>();
+    long exportAverage = exportTotal/ exportCount;
+    long importAverage = importTotal / importCount;
+    
+    exportImportAverage.add(exportAverage);
+    exportImportAverage.add(importAverage);
+    
+    return exportImportAverage;
+    
+  }
 //
 //
 //  //Provides an overview of all the monthly totals for a particular year.

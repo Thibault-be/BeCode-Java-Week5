@@ -37,5 +37,21 @@ public class ReportsController {
     return result;
   }
   
+  @GetMapping("/monthly_average")
+  public Map<String, Long> getMonthlyAverage(
+          @RequestParam String month,
+          @RequestParam String year,
+          @RequestParam (required = false, defaultValue = ".*") String country,
+          @RequestParam(required = false, defaultValue = ".*") String commodity,
+          @RequestParam(required = false, defaultValue = ".*") String transportMode
+        ){
+    ArrayList<Long> exportImportAverage = this.generateReports.getMonthlyAverage(month, year, country, commodity, transportMode);
+    Map<String, Long> result = new HashMap<>();
+    result.put("export average", exportImportAverage.get(0));
+    result.put("import average", exportImportAverage.get(1));
+    
+    return result;
+  }
+  
   
 }
