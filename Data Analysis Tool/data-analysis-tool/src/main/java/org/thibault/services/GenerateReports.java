@@ -8,6 +8,8 @@ import org.thibault.model.*;
 import org.thibault.repositories.*;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -28,11 +30,14 @@ public class GenerateReports {
     ArrayList<Long> exportImportTotal = new ArrayList<>();
     long exportSum = 0;
     long importSum = 0;
+    Pattern countryPattern = Pattern.compile(country);
     for (TradeData td : allData.getAllData()){
+      
+      Matcher countryMatcher = countryPattern.matcher(td.getCountry());
       
       if (td.getMonth().toLowerCase().equals(month) &&
           td.getYear().equals(year) &&
-          td.getCountry().equals(country) &&
+          countryMatcher.matches() &&
           td.getCommodity().equals(commodity) &&
           td.getTransportMode().equals(transportMode) &&
           td.getMeasure().equals("$")){
