@@ -123,4 +123,15 @@ public class TradeData {
   public String getCumulative(){
     return this.cumulative;
   }
+  
+  @Override
+  public String toString() {
+    return "TradeData{" +
+            "direction='" + direction + '\'' +
+            ", year='" + year + '\'' +
+            ", date='" + date + '\'' +
+            ", measure='" + measure + '\'' +
+            ", value='" + value + '\'' +
+            '}';
+  }
 }
